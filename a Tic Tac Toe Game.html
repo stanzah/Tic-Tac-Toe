@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tic Tac Toe Time</title>
+    <!--<script src="../Jquery/jquery-3.2.1.min.js"></script>-->
+    <!--<script src="../bootstrap/js/bootstrap.js"></script>-->
+    <!--<link rel="stylesheet" href="../bootstrap/css/bootstrap.css">-->
+	<!--<link href="https://fonts.googleapis.com/css?family=Mogra|VT323" rel="stylesheet">-->
+
+	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Mogra|VT323" rel="stylesheet">
+    <style>
+        .checkerboard{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .checkerboard div{
+            width: 33.3%;
+            height: 200px ;
+            border: 1px solid #000000;
+            background-color: #a6e1ec;
+            font-family: 'Mogra',monospace;
+            font-size: 50px;
+            /*下方使文字在div中水平垂直居中*/
+            text-align: center;
+            vertical-align: middle;
+            line-height: 200px;
+        }
+        .checkerboard p{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        h3{
+            font-size: 80px;
+            font-family: 'VT323', monospace;
+        }
+    </style>
+</head>
+<body>
+	<!--模态框-->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">请选择</h4>
+				</div>
+				<div class="modal-body">
+					选择X还是O
+                    <br>
+                    PS.由于制作者水平有限，使用过程中请将页面放大/缩小到适当大小
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-miss="modal" id="X">X</button>
+					<button type="button" class="btn btn-default" data-miss="modal" id="O">O</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="head text-center"><h3>Tic Tac Toe</h3></div>
+
+		<div class="checkerboard">
+			<div id="0"></div>
+			<div id="1"></div>
+			<div id="2"></div>
+			<div id="3"></div>
+			<div id="4"></div>
+			<div id="5"></div>
+			<div id="6"></div>
+			<div id="7"></div>
+			<div id="8"></div>
+		</div>
+	</div>
+	<script>
+		$('#myModal').modal('show');
+		let flag;
+		$("#X").click(function(){
+			$("#myModal").modal('hide');
+			flag = "x";
+            console.log(flag);
+		});
+
+		$("#O").click(function(){
+			$("#myModal").modal('hide');
+			flag = "o";
+            console.log(flag);
+		});
+        const result = [[0,1,2],[0,3,6],[0,4,8],[1,4,7],[2,4,6],[2,5,8],[3,4,5]];
+		let all = [0, 1, 2, 3, 4, 5, 6, 7, 8],
+			record = [];
+
+        $("#0").click(move);
+        $("#1").click(move);
+        $("#2").click(move);
+        $("#3").click(move);
+        $("#4").click(move);
+        $("#5").click(move);
+        $("#6").click(move);
+        $("#7").click(move);
+        $("#8").click(move);
+
+        function move() {
+            $(this).attr("disabled", "disabled").off('click');
+//            https://stackoverflow.com/questions/15555295/how-to-disable-div-element-and-everything-inside
+            $(this).append(flag);
+            let trash = $(this).attr("id");
+            let search = all.indexOf(trash);
+            all.splice(search,1);
+            record.push(trash);
+            console.log(record);
+            win();
+        }
+
+        function win() {
+            for(let i = 0; i < result.length; i++){
+                if(all.indexOf(result[i]) !== -1){
+                    alert("win");
+                    console.log(all[i]);
+                }
+            }
+        }
+
+	</script>
+</body>
+</html>
+{{userType}}
+{{#each this}}
